@@ -1,0 +1,21 @@
+Package: biaa
+Title: Bi-archetypal analysis
+Version: 0.0.1
+Authors@R: 
+    person(given = "Aleix",
+           family = "Alcacer",
+           role = c("aut", "cre"),
+           email = "aalcacer@uji.com")
+Description: Bi-archetypal analysis computes the archetypes of a dataset in much the same way that
+    bi-clustering does. This package will contain all necessary functions to perform the
+    bi-archetypal analysis succesfully.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Collate: 
+    'aux_biaa.R'
+    'rep_biaa.R'
+    'step_biaa.R'
+    'biaa.R'
