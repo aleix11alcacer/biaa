@@ -6,7 +6,7 @@
 #'@include aux_biaa.R
 
 
-rep_biaa <- function(data, k, c, maxiterations=1000, minimprovement=0.00001) {
+rep_biaa <- function(data, k, c, maxiter, minimpr) {
   x <- data
   n <- nrow(x)
 
@@ -27,7 +27,7 @@ rep_biaa <- function(data, k, c, maxiterations=1000, minimprovement=0.00001) {
   itr <- 1
   imp <- Inf
 
-  while ((itr <= maxiterations) & (imp > minimprovement)) {
+  while ((itr <= maxiter) & (imp > minimpr)) {
     # Calculate alphas fixing gammas
     alphas <- update_alphas(alphas, zbs, gammas, x)
     # Calculate gammas fixing alphas

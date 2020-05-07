@@ -4,7 +4,14 @@
 \alias{biaa}
 \title{Bi-archetypes}
 \usage{
-biaa(data, k, c, nrep = 10)
+biaa(
+  data,
+  k,
+  c,
+  nrep = 10,
+  maxiter = 10000,
+  minimpr = sqrt(.Machine$double.eps)
+)
 }
 \arguments{
 \item{data}{A \eqn{n \times m} matrix where \eqn{n} is the number of observations and \eqn{m}
@@ -15,6 +22,10 @@ is the number of variables.}
 \item{c}{A list with the desired numbers of variables.}
 
 \item{nrep}{The number of repetitions that each scenario is computed.}
+
+\item{maxiter}{The maximum number of iterations.}
+
+\item{minimpr}{The minimal value of improvement between two iterations.}
 }
 \value{
 A matrix with all possible scenarios (determined by the Cartesian product between
