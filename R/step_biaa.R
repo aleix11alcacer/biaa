@@ -13,6 +13,7 @@ step_biaa <- function (data, k, c, nrep, maxiter, minimpr) {
     archetypes <- rep_biaa(data, k, c, maxiter, minimpr)
     if (archetypes$rss < best_rss) {
       best_archetypes <- archetypes
+      best_rss <- archetypes$rss
     }
   }
   return(best_archetypes)

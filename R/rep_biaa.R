@@ -1,5 +1,3 @@
-# Title     : TODO
-# Objective : TODO
 # Created by: aleix11alcacer
 # Created on: 06/05/2020
 
