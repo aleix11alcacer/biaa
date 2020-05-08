@@ -4,9 +4,9 @@
 #'@include step_biaa.R
 
 
-#' @title Bi-archetypes
+#' @title Compute archetypes from multivariate data
 #'
-#' @description Perform bi-archetypal analysis on a dataset in order to obtain the data archetypes.
+#' @description Perform bi-archetypal analysis on a multivariate dataset in order to obtain the archetypes.
 #'
 #' @param data A \eqn{n \times m} matrix where \eqn{n} is the number of observations and \eqn{m}
 #' is the number of variables.
@@ -17,6 +17,12 @@
 #' @param minimpr The minimal value of improvement between two iterations.
 #' @return A matrix with all possible scenarios (determined by the Cartesian product between
 #' `k` and` c`).
+#' 
+#' @examples 
+#' biaa(data, 4, 10)
+#' biaa(data, 1:6, 1:15)
+#' biaa(data, 1:5, 5:8, nrep=100)
+#' biaa(data, 4:8, 10, maxiter=1000, minimpr=0.0001)
 #'
 #' @export
 biaa <- function(data, k, c, nrep = 10, maxiter = 10000, minimpr = sqrt(.Machine$double.eps)) {

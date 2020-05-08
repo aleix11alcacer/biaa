@@ -2,7 +2,7 @@
 % Please edit documentation in R/biaa.R
 \name{biaa}
 \alias{biaa}
-\title{Bi-archetypes}
+\title{Compute archetypes from multivariate data}
 \usage{
 biaa(
   data,
@@ -32,5 +32,12 @@ A matrix with all possible scenarios (determined by the Cartesian product betwee
 \code{k} and\code{ c}).
 }
 \description{
-Perform bi-archetypal analysis on a dataset in order to obtain the data archetypes.
+Perform bi-archetypal analysis on a multivariate dataset in order to obtain the archetypes.
+}
+\examples{
+biaa(data, 4, 10)
+biaa(data, 1:6, 1:15)
+biaa(data, 1:5, 5:8, nrep=100)
+biaa(data, 4:8, 10, maxiter=1000, minimpr=0.0001)
+
 }

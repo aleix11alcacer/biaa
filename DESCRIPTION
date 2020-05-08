@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aalcacer@uji.com")
 Description: Bi-archetypal analysis computes the archetypes of a dataset in much the same way that
-    bi-clustering does. This package will contain all necessary functions to perform the
+    bi-clustering does. This package contains all necessary functions to perform the
     bi-archetypal analysis succesfully.
 License: GPL (>= 2)
 URL: https://github.com/aleix11alcacer/biaa
