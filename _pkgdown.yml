@@ -4,15 +4,7 @@ template:
     
 navbar:
   title: "bayesplot"
-  left:
-    - text: "Reference"
-      href: reference/index.html
-    - text: "Changelog"
-      href: news/index.html
-
   right:
-   - icon: fa-twitter
-     href: https://twitter.com/aleix11alcacer
    - icon: fa-github
      href: https://github.com/aleix11alcacer/biaa
  

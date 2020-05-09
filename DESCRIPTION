@@ -9,7 +9,7 @@ Authors@R:
 Description: Bi-archetypal analysis computes the archetypes of a dataset in much the same way that
     bi-clustering does. This package contains all necessary functions to perform the
     bi-archetypal analysis succesfully.
-License: GPL (>= 2)
+License: GPL-3
 URL: https://github.com/aleix11alcacer/biaa
 BugReports: https://github.com/aleix11alcacer/biaa/issues/
 Encoding: UTF-8

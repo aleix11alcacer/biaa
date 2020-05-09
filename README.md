@@ -4,9 +4,9 @@
 # Bi-Archetypal Analysis <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 Bi-archetypal analysis computes the archetypes of a dataset in much the
-same way that bi-clustering does.
+same way that bi-clustering does the clusters.
 
-This package contain all necessary functions to perform the
+This package contains all necessary functions to perform the
 bi-archetypal analysis succesfully. But for now only multivariate
 datasets are supported.
 
