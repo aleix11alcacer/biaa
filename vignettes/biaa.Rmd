@@ -20,7 +20,7 @@ Let $X$ be a $n\times m$ matrix, ...
 ## Toy example
 
 
-### BiAA Parameters
+### Parameters
 
 ```{r}
 set.seed(123)
