@@ -23,3 +23,6 @@ Collate:
     'biaa.R'
     'get_biaa.R'
     'rss_biaa.R'
+Imports:
+    nnls,
+    plot3D
