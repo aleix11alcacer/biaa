@@ -59,7 +59,7 @@ image(sdata, xaxt= "n", yaxt= "n")
 ### Archetypes
 
 ```{r}
-arch = biaa::biaa(sdata, k = k, c = c, nrep = 10, maxiter = 10000)
+arch = biaa::biaa(sdata, k = k, c = c, nrep = 3, maxiter = 1000)
 ```
 
 #### Plot RSS
