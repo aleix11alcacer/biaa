@@ -9,10 +9,90 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, child="children/SETTINGS-knitr.txt"}
 ```
 
 ## Introduction
 
 Let $X$ be a $n\times m$ matrix, ...
+
+
+## Toy example
+
+
+### BiAA Parameters
+
+```{r}
+set.seed(123)
+
+m = 50
+n = 100
+k = 1:5
+c = 1:4
+```
+
+
+### Original data
+
+```{r}
+ax = 1:30; ay = 1:15
+bx = 31:70; by = 16:30
+
+data = matrix(runif(n * m, -1, 1), nrow = n, ncol = m)
+data[ax, ay] = rnorm(length(ax) * length(ay), mean = -0.5, sd = 0.3)
+data[bx, by] = rnorm(length(bx) * length(by), mean = 0.5, sd = 0.3)
+
+image(data, xaxt= "n", yaxt= "n")
+```
+
+
+### Shuffled data
+
+```{r}
+srows = sample(n, n)
+scols = sample(m, m)
+sdata = data[srows, scols]
+
+image(sdata, xaxt= "n", yaxt= "n")
+```
+
+## Archetypes
+
+```{r}
+arch = biaa::biaa(sdata, k = k, c = c, nrep = 3, maxiter = 10000)
+```
+
+### Plot RSS
+```{r}
+biaa::rssplot(arch)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+biaa:::rssplot(arch, phi = 0, theta = -180)
+biaa:::rssplot(arch, phi = 0, theta = 90)
+```
+
+### Select desired model
+```{r}
+barch = biaa::getmodel(arch, k = 3, c = 3)
+```
+
+## Results
+
+```{r}
+barch$rss
+barch$archetypes
+```
+
+### Clustering data using the archetypes
+
+```{r}
+maxalphas = apply(barch$alphas, 1, which.max)
+orows = order(maxalphas)
+
+maxgammas = apply(barch$gammas, 2, which.max)
+ocols = order(maxgammas)
+
+image(sdata[orows, ocols], xaxt= "n", yaxt= "n")
+```

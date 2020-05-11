@@ -21,3 +21,5 @@ Collate:
     'rep_biaa.R'
     'step_biaa.R'
     'biaa.R'
+    'get_biaa.R'
+    'rss_biaa.R'

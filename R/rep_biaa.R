@@ -64,10 +64,15 @@ rep_biaa <- function(data, k, c, maxiter, minimpr) {
   betas <- update_betas(betas, x, omegas, zbs)
   omegas <- update_omegas(omegas, x, betas, zbs)
 
-  return(list(archetypes=zbs,
-              rss=rss,
-              alphas=alphas,
-              gammas=gammas,
-              betas=betas,
-              omegas=omegas))
+  res = list(archetypes=zbs,
+             rss=rss,
+             alphas=alphas,
+             gammas=gammas,
+             betas=betas,
+             omegas=omegas,
+             k=k,
+             c=c)
+  class(res) <- "biaa"
+  
+  return(res)
 }

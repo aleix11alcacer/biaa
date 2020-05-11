@@ -38,5 +38,8 @@ biaa <- function(data, k, c, nrep = 10, maxiter = 10000, minimpr = sqrt(.Machine
     }
   }
   # Return the array of archetypes
+  archetypes = structure(archetypes, k=k, c=c)
+  class(archetypes) <- "biaaGroup"
+  
   return(archetypes)
 }
