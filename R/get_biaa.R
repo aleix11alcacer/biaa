@@ -17,8 +17,8 @@
 getmodel <- function(data, k, c) {
   att <- attributes(data)
 
-  k = which(k %in% att$k)
-  c = which(c %in% att$c)
+  k = match(k, att$k)
+  c = match(c, att$c)
   
   return(data[[k]][[c]])
 }

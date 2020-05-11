@@ -32,7 +32,7 @@ c = 1:4
 ```
 
 
-### Original data
+### Data
 
 ```{r}
 ax = 1:30; ay = 1:15
@@ -46,7 +46,7 @@ image(data, xaxt= "n", yaxt= "n")
 ```
 
 
-### Shuffled data
+#### Shuffled data
 
 ```{r}
 srows = sample(n, n)
@@ -56,13 +56,13 @@ sdata = data[srows, scols]
 image(sdata, xaxt= "n", yaxt= "n")
 ```
 
-## Archetypes
+### Archetypes
 
 ```{r}
-arch = biaa::biaa(sdata, k = k, c = c, nrep = 3, maxiter = 10000)
+arch = biaa::biaa(sdata, k = k, c = c, nrep = 10, maxiter = 10000)
 ```
 
-### Plot RSS
+#### Plot RSS
 ```{r}
 biaa::rssplot(arch)
 ```
@@ -73,19 +73,19 @@ biaa:::rssplot(arch, phi = 0, theta = -180)
 biaa:::rssplot(arch, phi = 0, theta = 90)
 ```
 
-### Select desired model
+#### Select desired model
 ```{r}
 barch = biaa::getmodel(arch, k = 3, c = 3)
 ```
 
-## Results
+### Results
 
 ```{r}
 barch$rss
 barch$archetypes
 ```
 
-### Clustering data using the archetypes
+#### Clustering data using the archetypes
 
 ```{r}
 maxalphas = apply(barch$alphas, 1, which.max)
