@@ -38,7 +38,7 @@ init_coefs <- function(x, k, c, ...) {
 
 
 update_alphas <- function(coefs, c, d, e, ...) {
-  #require(nnls)
+  require(nnls)
   b <- t(e)
   A <- t(c %*% d)
 
@@ -55,7 +55,7 @@ update_alphas <- function(coefs, c, d, e, ...) {
 update_betas <- update_alphas
 
 update_gammas <- function(coefs, c, d, e, ...) {
-  #require(nnls)
+  require(nnls)
   b <- e
   A <- d %*% c
 
