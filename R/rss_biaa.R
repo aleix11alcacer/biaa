@@ -1,6 +1,7 @@
 # Created by: aleix11alcacer
 # Created on: 06/05/2020
 
+#' @import plot3D
 
 #' @title Plot the bi-archetypal analysis RSS
 #'

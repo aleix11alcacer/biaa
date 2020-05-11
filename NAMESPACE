@@ -3,3 +3,5 @@
 export(biaa)
 export(getmodel)
 export(rssplot)
+import(nnls)
+import(plot3D)
