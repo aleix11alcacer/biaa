@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • biaa</title>
+<title>Plot the bi-archetypal analysis RSS — rssplot • biaa</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Plot the bi-archetypal analysis RSS — rssplot" />
+<meta property="og:description" content="Plot in a the RSS of the all archetypes stored in a &quot;biaaGroup&quot; class list." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -119,54 +120,41 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Plot the bi-archetypal analysis RSS</h1>
+    <small class="dont-index">Source: <a href='https://github.com/aleix11alcacer/biaa/blob/master/R/rss_biaa.R'><code>R/rss_biaa.R</code></a></small>
+    <div class="hidden name"><code>rssplot.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Plot in a the RSS of the all archetypes stored in a <code>"biaaGroup"</code> class list.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>rssplot</span>(<span class='no'>data</span>, <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>135</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="biaa.html">biaa()</a></code> </p>
-        </td>
-        <td><p>Compute archetypes from multivariate data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getmodel.html">getmodel()</a></code> </p>
-        </td>
-        <td><p>Get the archetypal model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rssplot.html">rssplot()</a></code> </p>
-        </td>
-        <td><p>Plot the bi-archetypal analysis RSS</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A <code>"biaaGroup"</code> class list.</p></td>
+    </tr>
+    <tr>
+      <th>phi</th>
+      <td><p>A number giving the azimuthal direction.</p></td>
+    </tr>
+    <tr>
+      <th>theta</th>
+      <td><p>A number giving the colatitude.</p></td>
+    </tr>
     </table>
-  </div>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='fu'>rssplot</span>(<span class='no'>archetypes</span>)
+<span class='fu'>rssplot</span>(<span class='no'>archetypes</span>, <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>165</span>)</pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

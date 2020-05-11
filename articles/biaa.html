@@ -99,9 +99,9 @@
 <div id="toy-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#toy-example" class="anchor"></a>Toy example</h2>
-<div id="biaa-parameters" class="section level3">
+<div id="parameters" class="section level3">
 <h3 class="hasAnchor">
-<a href="#biaa-parameters" class="anchor"></a>BiAA Parameters</h3>
+<a href="#parameters" class="anchor"></a>Parameters</h3>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123</span>)
 
 <span class="no">m</span> <span class="kw">=</span> <span class="fl">50</span>
@@ -135,35 +135,35 @@
 <div id="archetypes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#archetypes" class="anchor"></a>Archetypes</h3>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">arch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/biaa.html">biaa</a></span>(<span class="no">sdata</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="no">k</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="no">c</span>, <span class="kw">nrep</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">maxiter</span> <span class="kw">=</span> <span class="fl">10000</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">arch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/biaa.html">biaa</a></span>(<span class="no">sdata</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="no">k</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="no">c</span>, <span class="kw">nrep</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">maxiter</span> <span class="kw">=</span> <span class="fl">1000</span>)</pre></body></html></div>
 <pre><code>Loading required package: nnls</code></pre>
 <div id="plot-rss" class="section level4">
 <h4 class="hasAnchor">
 <a href="#plot-rss" class="anchor"></a>Plot RSS</h4>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu">rssplot</span>(<span class="no">arch</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rssplot.html">rssplot</a></span>(<span class="no">arch</span>)</pre></body></html></div>
 <pre><code>Loading required package: plot3D</code></pre>
 <p><img src="biaa_files/figure-html/unnamed-chunk-6-1.png" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>))
-<span class="kw pkg">biaa</span><span class="kw ns">:::</span><span class="fu">rssplot</span>(<span class="no">arch</span>, <span class="kw">phi</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">theta</span> <span class="kw">=</span> -<span class="fl">180</span>)
-<span class="kw pkg">biaa</span><span class="kw ns">:::</span><span class="fu">rssplot</span>(<span class="no">arch</span>, <span class="kw">phi</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">theta</span> <span class="kw">=</span> <span class="fl">90</span>)</pre></body></html></div>
+<span class="kw pkg">biaa</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/rssplot.html">rssplot</a></span>(<span class="no">arch</span>, <span class="kw">phi</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">theta</span> <span class="kw">=</span> -<span class="fl">180</span>)
+<span class="kw pkg">biaa</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/rssplot.html">rssplot</a></span>(<span class="no">arch</span>, <span class="kw">phi</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">theta</span> <span class="kw">=</span> <span class="fl">90</span>)</pre></body></html></div>
 <p><img src="biaa_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="select-desired-model" class="section level4">
 <h4 class="hasAnchor">
 <a href="#select-desired-model" class="anchor"></a>Select desired model</h4>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">barch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu">getmodel</span>(<span class="no">arch</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">barch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/getmodel.html">getmodel</a></span>(<span class="no">arch</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
 </div>
 </div>
 <div id="results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#results" class="anchor"></a>Results</h3>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">rss</span></pre></body></html></div>
-<pre><code>[1] 13.04372</code></pre>
+<pre><code>[1] 13.03165</code></pre>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">archetypes</span></pre></body></html></div>
-<pre><code>           [,1]       [,2]        [,3]
-[1,]  0.8603781 -0.1285474 -0.98567768
-[2,] -0.5653325 -0.5115699  0.87103363
-[3,] -0.7006800  1.0782141 -0.09463972</code></pre>
+<pre><code>           [,1]        [,2]       [,3]
+[1,]  0.9974560 -0.53877150 -0.6773080
+[2,] -0.1611087  1.20067328 -0.7601152
+[3,] -0.9271722 -0.09963161  0.8693870</code></pre>
 <div id="clustering-data-using-the-archetypes" class="section level4">
 <h4 class="hasAnchor">
 <a href="#clustering-data-using-the-archetypes" class="anchor"></a>Clustering data using the archetypes</h4>
