@@ -3,3 +3,5 @@ docs/
 .Rproj.user
 docs
 .Rbuildignore
+.Rhistory
+drafts
