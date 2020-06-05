@@ -1,0 +1,78 @@
+---
+title: "Musical Preferences"
+output: html_document
+---
+
+```{r, child="children/SETTINGS-knitr.txt"}
+```
+
+```{r}
+library(readr)
+library(tidyr)
+library(dplyr)
+library(tibble)
+```
+
+## Read data
+
+```{r}
+data = read_csv("music-preferences.csv")
+
+head(data)
+```
+
+## Cumpute the archetypes using bi-archetypal analysis
+
+```{r}
+library(biaa)
+
+set.seed(123)
+
+sdata = as.matrix(data)
+n = dim(sdata)[1]
+m = dim(sdata)[2]
+
+k = 3:6
+c = 3:6
+
+arch = biaa(as.matrix(data), k, c, nrep = 10, maxiter = 100000)
+```
+
+### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+biaa:::rssplot(arch, phi = 0, theta = -180)
+biaa:::rssplot(arch, phi = 0, theta = 90)
+```
+
+### Getting the best model
+
+```{r}
+bk = 6
+bc = 4
+barch = getmodel(arch, k = bk, bc)
+```
+
+
+## Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(name = colnames(data))
+
+thresh = 0.3
+ogammas %>% arrange(desc(V1)) %>% filter(V1 > thresh) %>% select(name, V1)
+ogammas %>% arrange(desc(V2)) %>% filter(V2 > thresh) %>% select(name, V2)
+ogammas %>% arrange(desc(V3)) %>% filter(V3 > thresh) %>% select(name, V3)
+ogammas %>% arrange(desc(V4)) %>% filter(V4 > thresh) %>% select(name, V4)
+
+```

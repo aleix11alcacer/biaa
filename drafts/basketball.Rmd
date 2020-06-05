@@ -1,0 +1,86 @@
+---
+title: "NBA Centers"
+output: html_document
+---
+
+```{r, child="children/SETTINGS-knitr.txt"}
+```
+
+```{r}
+library(readr)
+library(tidyr)
+library(dplyr)
+library(tibble)
+```
+
+## Read data
+
+```{r}
+data <- read_csv("basketball-centers.csv")
+data <- data %>% column_to_rownames("PLAYER") %>% select(-TEAM, -AGE, -GP, -W, -L, -MIN)
+head(data)
+```
+
+## Cumpute the archetypes using bi-archetypal analysis
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+sdata = scale(as.matrix(data))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(sdata, k, c, nrep = 20, maxiter = 100000)
+```
+
+### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+biaa:::rssplot(arch, phi = 0, theta = -180)
+biaa:::rssplot(arch, phi = 0, theta = 90)
+```
+
+### Getting the best model
+
+```{r}
+bk = 5
+bc = 4
+barch = getmodel(arch, k = bk, bc)
+```
+
+
+## Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(data))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(data))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```

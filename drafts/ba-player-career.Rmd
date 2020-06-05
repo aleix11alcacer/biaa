@@ -1,0 +1,329 @@
+---
+title: "NBA player archetypes"
+output: html_document
+---
+
+```{r, child="children/SETTINGS-knitr.txt"}
+```
+
+```{r}
+library(readr)
+library(tidyr)
+library(dplyr)
+library(tibble)
+```
+
+## Read data
+
+```{r}
+minutes = 25
+
+data <- read_csv("players-2020.csv")
+head(data)
+```
+
+
+```{r}
+centers <- data %>% filter(Pos == 'C') %>% select(-Pos, -Tm) %>% column_to_rownames("Player")
+powerforwards <- data %>% filter(Pos == 'PF') %>% select(-Pos, -Tm) %>% column_to_rownames("Player")
+smallforwards <- data %>% filter(Pos == 'SF') %>% select(-Pos, -Tm) %>% column_to_rownames("Player")
+shootingguards <- data %>% filter(Pos == 'SG') %>% select(-Pos, -Tm) %>% column_to_rownames("Player")
+pointguards <- data %>% filter(Pos == 'PG') %>% select(-Pos, -Tm) %>% column_to_rownames("Player")
+```
+
+## Centers
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+centers_scaled = scale(as.matrix(centers))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(centers_scaled, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 3
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(centers))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(centers))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+
+## Power Forwards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_powerforwards = scale(as.matrix(powerforwards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_powerforwards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 4
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(powerforwards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(powerforwards))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Small Forwards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_smallforwards = scale(as.matrix(smallforwards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_smallforwards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(smallforwards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(smallforwards))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Shooting Guards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_shootingguards = scale(as.matrix(shootingguards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_shootingguards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(shootingguards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(shootingguards))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Point Guards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_pointguards = scale(as.matrix(pointguards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_pointguards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(pointguards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(pointguards))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```

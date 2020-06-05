@@ -1,0 +1,331 @@
+---
+title: "NBA Point Guards"
+output: html_document
+---
+
+```{r, child="children/SETTINGS-knitr.txt"}
+```
+
+```{r}
+library(readr)
+library(tidyr)
+library(dplyr)
+library(tibble)
+```
+
+## Read data
+
+```{r}
+minutes = 1500
+
+data <- read_csv("basketball-reference.csv")
+data <- data %>% replace_na(list("3P%" = 0))
+
+pointguards <- data %>% filter(Pos == "PG", MP > minutes) %>% column_to_rownames("Player") %>% select(-Rk, -Pos, -Age, -Tm, -G, -GS, -MP, -X30, -FGA, -"3PA", -"2PA", -FTA, -TRB)
+dim(pointguards)
+shootingguards <- data %>% filter(Pos == "SG", MP > minutes) %>% column_to_rownames("Player") %>% select(-Rk, -Pos, -Age, -Tm, -G, -GS, -MP, -X30, -FGA, -"3PA", -"2PA", -FTA, -TRB)
+dim(shootingguards)
+smallforwards <- data %>% filter(Pos == "SF", MP > minutes) %>% column_to_rownames("Player") %>% select(-Rk, -Pos, -Age, -Tm, -G, -GS, -MP, -X30, -FGA, -"3PA", -"2PA", -FTA, -TRB)
+dim(smallforwards)
+powerforwards <- data %>% filter(Pos == "PF", MP > minutes) %>% column_to_rownames("Player") %>% select(-Rk, -Pos, -Age, -Tm, -G, -GS, -MP, -X30, -FGA, -"3PA", -"2PA", -FTA, -TRB)
+dim(powerforwards)
+centers <- data %>% filter(Pos == "C", MP > minutes) %>% column_to_rownames("Player") %>% select(-Rk, -Pos, -Age, -Tm, -G, -GS, -MP, -X30, -FGA, -"3PA", -"2PA", -FTA, -TRB)
+dim(centers)
+```
+
+## Centers
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_centers = scale(as.matrix(centers))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_centers, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 3
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(centers))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(centers))
+
+thresh = 0.6
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+
+## Power Forwards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_powerforwards = scale(as.matrix(powerforwards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_powerforwards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 4
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(powerforwards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(powerforwards))
+
+thresh = 0.6
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Small Forwards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_smallforwards = scale(as.matrix(smallforwards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_smallforwards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 4
+bc = 4
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(smallforwards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(smallforwards))
+
+thresh = 0.6
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Shooting Guards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_shootingguards = scale(as.matrix(shootingguards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_shootingguards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 3
+bc = 3
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(shootingguards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(shootingguards))
+
+thresh = 0.6
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
+
+## Point Guards
+
+### Compute the archetypes
+
+```{r}
+library(biaa)
+
+set.seed(2020)
+
+scaled_pointguards = scale(as.matrix(pointguards))
+
+k = 2:6
+c = 2:6
+
+arch = biaa(scaled_pointguards, k, c, nrep = 30, maxiter = 200000)
+```
+
+#### Plotting the RSS
+```{r}
+rssplot(arch)
+```
+
+#### Getting the best model
+
+```{r}
+bk = 5
+bc = 4
+barch = getmodel(arch, k = bk, c = bc)
+```
+
+
+### Results
+
+```{r}
+barch$rss
+
+barch$archetypes
+```
+
+```{r}
+ogammas = as_tibble(t(barch$gammas)) %>% add_column(VARIABLE = colnames(pointguards))
+
+thresh = 0.5
+for (i in 1:bc) {
+  print(ogammas %>% filter(.[[i]] > thresh) %>% select(VARIABLE, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+
+}
+```
+
+
+```{r}
+oalphas = as_tibble(barch$alphas) %>% add_column(PLAYER = row.names(pointguards))
+
+thresh = 0.5
+for (i in 1:bk) {
+  print(oalphas %>% filter(.[[i]] > thresh) %>% select(PLAYER, SIMILARITY = i) %>% arrange(desc(SIMILARITY)))
+}
+```
