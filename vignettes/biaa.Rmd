@@ -19,80 +19,81 @@ Let $X$ be a $n\times m$ matrix, ...
 
 ## Toy example
 
-
-### Parameters
-
 ```{r}
-set.seed(123)
 
-m = 50
-n = 100
-k = 1:5
-c = 1:4
+set.seed(2020)
+
+n <- 100
+m <- 100
+
+rotate <- function(x) t(apply(x, 2, rev))
 ```
 
-
-### Data
-
-```{r}
-ax = 1:30; ay = 1:15
-bx = 31:70; by = 16:30
-
-data = matrix(runif(n * m, -1, 1), nrow = n, ncol = m)
-data[ax, ay] = rnorm(length(ax) * length(ay), mean = -0.5, sd = 0.3)
-data[bx, by] = rnorm(length(bx) * length(by), mean = 0.5, sd = 0.3)
-
-image(data, xaxt= "n", yaxt= "n")
-```
-
-
-#### Shuffled data
+## Toy data
 
 ```{r}
-srows = sample(n, n)
-scols = sample(m, m)
-sdata = data[srows, scols]
+ax <- 1:(n/2); ay <- (m/2+1):m;
+bx <- (n/2+1):n; by <- 1:(m/2);
 
-image(sdata, xaxt= "n", yaxt= "n")
+data <- array(0.5, dim = c(n, m))
+data[ax, ay] = 0
+data[bx, by] = 1
+
+data <- data + array(rnorm(n * m, 0, 0.2), dim = c(n, m))
+
+image(rotate(data), axes=FALSE)
 ```
 
-### Archetypes
+### Shuffling data
 
 ```{r}
-arch = biaa::biaa(sdata, k = k, c = c, nrep = 3, maxiter = 1000)
+shuf_rows <- sample(n, n)
+shuf_cols <- sample(m, m)
+shuf_data <- data[shuf_rows, shuf_cols]
+
+image(rotate(shuf_data), axes=FALSE)
 ```
 
-#### Plot RSS
+## Bi-Archetypal analysis
+
+```{r}
+k <- 1:4
+c <- 1:4
+
+arch <- biaa::biaa(shuf_data, k, c, nrep = 5, maxiter = 5000)
+```
+
+### Ploting the RSS
 ```{r}
 biaa::rssplot(arch)
 ```
-
 ```{r}
 par(mfrow = c(1, 2))
 biaa:::rssplot(arch, phi = 0, theta = -180)
 biaa:::rssplot(arch, phi = 0, theta = 90)
 ```
 
-#### Select desired model
+### Geting the best model
+
 ```{r}
-barch = biaa::getmodel(arch, k = 3, c = 3)
+barch <- biaa::getmodel(arch, k = 2, c = 2)
 ```
 
-### Results
+## Results
 
 ```{r}
 barch$rss
 barch$archetypes
 ```
 
-#### Clustering data using the archetypes
+### Ordering data using the bi-archetypes
 
 ```{r}
-maxalphas = apply(barch$alphas, 1, which.max)
-orows = order(maxalphas)
+maxalphas <- apply(barch$alphas, 1, which.max)
+ord_rows <- order(maxalphas)
 
-maxgammas = apply(barch$gammas, 2, which.max)
-ocols = order(maxgammas)
+maxgammas <- apply(barch$gammas, 2, which.max)
+ord_cols <- order(maxgammas)
 
-image(sdata[orows, ocols], xaxt= "n", yaxt= "n")
+image(rotate(shuf_data[ord_rows, ord_cols]), axes = FALSE)
 ```
