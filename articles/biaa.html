@@ -99,47 +99,49 @@
 <div id="toy-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#toy-example" class="anchor"></a>Toy example</h2>
-<div id="parameters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#parameters" class="anchor"></a>Parameters</h3>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123</span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">2020</span>)
 
-<span class="no">m</span> <span class="kw">=</span> <span class="fl">50</span>
-<span class="no">n</span> <span class="kw">=</span> <span class="fl">100</span>
-<span class="no">k</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">5</span>
-<span class="no">c</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span></pre></body></html></div>
+<span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">100</span>
+<span class="no">m</span> <span class="kw">&lt;-</span> <span class="fl">100</span>
+
+<span class="no">rotate</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">x</span>, <span class="fl">2</span>, <span class="no">rev</span>))</pre></body></html></div>
 </div>
-<div id="data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">ax</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">30</span>; <span class="no">ay</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">15</span>
-<span class="no">bx</span> <span class="kw">=</span> <span class="fl">31</span>:<span class="fl">70</span>; <span class="no">by</span> <span class="kw">=</span> <span class="fl">16</span>:<span class="fl">30</span>
+<div id="toy-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#toy-data" class="anchor"></a>Toy data</h2>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">ax</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:(<span class="no">n</span>/<span class="fl">2</span>); <span class="no">ay</span> <span class="kw">&lt;-</span> (<span class="no">m</span>/<span class="fl">2</span>+<span class="fl">1</span>):<span class="no">m</span>;
+<span class="no">bx</span> <span class="kw">&lt;-</span> (<span class="no">n</span>/<span class="fl">2</span>+<span class="fl">1</span>):<span class="no">n</span>; <span class="no">by</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:(<span class="no">m</span>/<span class="fl">2</span>);
 
-<span class="no">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="no">n</span> * <span class="no">m</span>, -<span class="fl">1</span>, <span class="fl">1</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="no">m</span>)
-<span class="no">data</span>[<span class="no">ax</span>, <span class="no">ay</span>] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">ax</span>) * <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">ay</span>), <span class="kw">mean</span> <span class="kw">=</span> -<span class="fl">0.5</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">0.3</span>)
-<span class="no">data</span>[<span class="no">bx</span>, <span class="no">by</span>] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">bx</span>) * <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">by</span>), <span class="kw">mean</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">0.3</span>)
+<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="fl">0.5</span>, <span class="kw">dim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">n</span>, <span class="no">m</span>))
+<span class="no">data</span>[<span class="no">ax</span>, <span class="no">ay</span>] <span class="kw">=</span> <span class="fl">0</span>
+<span class="no">data</span>[<span class="no">bx</span>, <span class="no">by</span>] <span class="kw">=</span> <span class="fl">1</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="no">data</span>, <span class="kw">xaxt</span><span class="kw">=</span> <span class="st">"n"</span>, <span class="kw">yaxt</span><span class="kw">=</span> <span class="st">"n"</span>)</pre></body></html></div>
+<span class="no">data</span> <span class="kw">&lt;-</span> <span class="no">data</span> + <span class="fu"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">n</span> * <span class="no">m</span>, <span class="fl">0</span>, <span class="fl">0.2</span>), <span class="kw">dim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">n</span>, <span class="no">m</span>))
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="fu">rotate</span>(<span class="no">data</span>), <span class="kw">axes</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="biaa_files/figure-html/unnamed-chunk-3-1.png" width="700" style="display: block; margin: auto;"></p>
-<div id="shuffled-data" class="section level4">
-<h4 class="hasAnchor">
-<a href="#shuffled-data" class="anchor"></a>Shuffled data</h4>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">srows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">n</span>, <span class="no">n</span>)
-<span class="no">scols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">m</span>, <span class="no">m</span>)
-<span class="no">sdata</span> <span class="kw">=</span> <span class="no">data</span>[<span class="no">srows</span>, <span class="no">scols</span>]
+<div id="shuffling-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#shuffling-data" class="anchor"></a>Shuffling data</h3>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">shuf_rows</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">n</span>, <span class="no">n</span>)
+<span class="no">shuf_cols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">m</span>, <span class="no">m</span>)
+<span class="no">shuf_data</span> <span class="kw">&lt;-</span> <span class="no">data</span>[<span class="no">shuf_rows</span>, <span class="no">shuf_cols</span>]
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="no">sdata</span>, <span class="kw">xaxt</span><span class="kw">=</span> <span class="st">"n"</span>, <span class="kw">yaxt</span><span class="kw">=</span> <span class="st">"n"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="fu">rotate</span>(<span class="no">shuf_data</span>), <span class="kw">axes</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="biaa_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="archetypes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#archetypes" class="anchor"></a>Archetypes</h3>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">arch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/biaa.html">biaa</a></span>(<span class="no">sdata</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="no">k</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="no">c</span>, <span class="kw">nrep</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">maxiter</span> <span class="kw">=</span> <span class="fl">1000</span>)</pre></body></html></div>
+<div id="bi-archetypal-analysis" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bi-archetypal-analysis" class="anchor"></a>Bi-Archetypal analysis</h2>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">k</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">4</span>
+<span class="no">c</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">4</span>
+
+<span class="no">arch</span> <span class="kw">&lt;-</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/biaa.html">biaa</a></span>(<span class="no">shuf_data</span>, <span class="no">k</span>, <span class="no">c</span>, <span class="kw">nrep</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">maxiter</span> <span class="kw">=</span> <span class="fl">5000</span>)</pre></body></html></div>
 <pre><code>Loading required package: nnls</code></pre>
-<div id="plot-rss" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plot-rss" class="anchor"></a>Plot RSS</h4>
+<div id="ploting-the-rss" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ploting-the-rss" class="anchor"></a>Ploting the RSS</h3>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rssplot.html">rssplot</a></span>(<span class="no">arch</span>)</pre></body></html></div>
 <pre><code>Loading required package: plot3D</code></pre>
 <p><img src="biaa_files/figure-html/unnamed-chunk-6-1.png" width="700" style="display: block; margin: auto;"></p>
@@ -148,34 +150,32 @@
 <span class="kw pkg">biaa</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/rssplot.html">rssplot</a></span>(<span class="no">arch</span>, <span class="kw">phi</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">theta</span> <span class="kw">=</span> <span class="fl">90</span>)</pre></body></html></div>
 <p><img src="biaa_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
-<div id="select-desired-model" class="section level4">
-<h4 class="hasAnchor">
-<a href="#select-desired-model" class="anchor"></a>Select desired model</h4>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">barch</span> <span class="kw">=</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/getmodel.html">getmodel</a></span>(<span class="no">arch</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
-</div>
-</div>
-<div id="results" class="section level3">
+<div id="geting-the-best-model" class="section level3">
 <h3 class="hasAnchor">
-<a href="#results" class="anchor"></a>Results</h3>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">rss</span></pre></body></html></div>
-<pre><code>[1] 13.03165</code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">archetypes</span></pre></body></html></div>
-<pre><code>           [,1]        [,2]       [,3]
-[1,]  0.9974560 -0.53877150 -0.6773080
-[2,] -0.1611087  1.20067328 -0.7601152
-[3,] -0.9271722 -0.09963161  0.8693870</code></pre>
-<div id="clustering-data-using-the-archetypes" class="section level4">
-<h4 class="hasAnchor">
-<a href="#clustering-data-using-the-archetypes" class="anchor"></a>Clustering data using the archetypes</h4>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">maxalphas</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">barch</span>$<span class="no">alphas</span>, <span class="fl">1</span>, <span class="no">which.max</span>)
-<span class="no">orows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">maxalphas</span>)
-
-<span class="no">maxgammas</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">barch</span>$<span class="no">gammas</span>, <span class="fl">2</span>, <span class="no">which.max</span>)
-<span class="no">ocols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">maxgammas</span>)
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="no">sdata</span>[<span class="no">orows</span>, <span class="no">ocols</span>], <span class="kw">xaxt</span><span class="kw">=</span> <span class="st">"n"</span>, <span class="kw">yaxt</span><span class="kw">=</span> <span class="st">"n"</span>)</pre></body></html></div>
-<p><img src="biaa_files/figure-html/unnamed-chunk-10-1.png" width="700" style="display: block; margin: auto;"></p>
+<a href="#geting-the-best-model" class="anchor"></a>Geting the best model</h3>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">barch</span> <span class="kw">&lt;-</span> <span class="kw pkg">biaa</span><span class="kw ns">::</span><span class="fu"><a href="../reference/getmodel.html">getmodel</a></span>(<span class="no">arch</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">c</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
 </div>
+</div>
+<div id="results" class="section level2">
+<h2 class="hasAnchor">
+<a href="#results" class="anchor"></a>Results</h2>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">rss</span></pre></body></html></div>
+<pre><code>[1] 3.904956</code></pre>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">barch</span>$<span class="no">archetypes</span></pre></body></html></div>
+<pre><code>         [,1]       [,2]
+[1,] 1.087640  0.4407000
+[2,] 0.233807 -0.3834161</code></pre>
+<div id="ordering-data-using-the-bi-archetypes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ordering-data-using-the-bi-archetypes" class="anchor"></a>Ordering data using the bi-archetypes</h3>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">maxalphas</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">barch</span>$<span class="no">alphas</span>, <span class="fl">1</span>, <span class="no">which.max</span>)
+<span class="no">ord_rows</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">maxalphas</span>)
+
+<span class="no">maxgammas</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">barch</span>$<span class="no">gammas</span>, <span class="fl">2</span>, <span class="no">which.max</span>)
+<span class="no">ord_cols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">maxgammas</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span>(<span class="fu">rotate</span>(<span class="no">shuf_data</span>[<span class="no">ord_rows</span>, <span class="no">ord_cols</span>]), <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<p><img src="biaa_files/figure-html/unnamed-chunk-10-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 </div>
   </div>
